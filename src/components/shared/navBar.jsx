@@ -1,18 +1,18 @@
 import React from "react";
-import { Link } from "react-router-dom";
-const NavBar = () => {
+
+const NavBar = props => {
   return (
     <div>
       <nav>
         <ul>
           <li>
-            <Link to="/">Home</Link>
+            <button onClick={props.onClickHome}>Home</button>
           </li>
           <li>
-            <Link to="/resume">Resume</Link>
+            <button onClick={props.onClickResume}>Resume</button>
           </li>
           <li>
-            <Link to="/contact">contact</Link>
+            <button onClick={props.onClickContact}>contact</button>
           </li>
         </ul>
       </nav>

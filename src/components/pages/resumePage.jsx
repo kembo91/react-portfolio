@@ -7,7 +7,6 @@ class ResumePage extends Component {
     return (
       <div>
         <h1>Resume Page</h1>
-        <NavBar />
       </div>
     );
   }
