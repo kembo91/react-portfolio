@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import NavBar from "../shared/navBar";
 import { Form, Button } from "semantic-ui-react";
 import Validator from "validator";
 import InlineError from "../messages/inlineError";
