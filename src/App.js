@@ -29,6 +29,8 @@ class App extends Component {
         return <ResumePage />;
       case "contact":
         return <ContactPage />;
+      default:
+        return <Aboutme />;
     }
   };
 

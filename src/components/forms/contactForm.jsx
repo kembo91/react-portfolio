@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Button } from "semantic-ui-react";
+import { Form, Button, Message } from "semantic-ui-react";
 import InlineError from "../messages/inlineError";
 import Validator from "validator";
 import PropTypes from "prop-types";
@@ -24,7 +24,9 @@ class ContactForm extends React.Component {
     const errors = this.validate();
     this.setState({ errors });
     if (Object.keys(errors).length === 0) {
-      this.props.submit(this.state.data);
+      this.props
+        .submit(this.state.data)
+        .catch(err => this.setState({ errors: err.response.data.errors }));
     }
   };
 
@@ -37,7 +39,13 @@ class ContactForm extends React.Component {
     const { errors, data } = this.state;
     return (
       <div>
-        <Form noValidate onSubmit={this.props.submit}>
+        <Form noValidate onSubmit={this.onSubmit}>
+          {errors.global && (
+            <Message negative>
+              <Message.Header>Something went wrong</Message.Header>
+              <p>{errors.global}</p>
+            </Message>
+          )}
           <Form.Field error={!!errors.email}>
             <label>E-Mail</label>
             <input

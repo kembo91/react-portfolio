@@ -1,1 +1,1 @@
-export const USER_LOGGED_IN = "USER LOGGED IN";
+export const USER_SENT_MESSAGE = "USER SENT MESSAGE";

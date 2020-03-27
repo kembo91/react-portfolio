@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import ContactForm from "../forms/contactForm";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { message } from "../../actions/message";
 class ContactPage extends Component {
   onSubmit = data => {
-    props.message(data);
+    return this.props.message(data);
   };
 
   render() {
@@ -15,5 +17,9 @@ class ContactPage extends Component {
     );
   }
 }
+
+ContactPage.propTypes = {
+  message: PropTypes.func.isRequired
+};
 
 export default connect(null, { message })(ContactPage);

@@ -1,10 +1,10 @@
-import { USER_LOGGED_IN } from "../types";
+import { USER_SENT_MESSAGE } from "../types";
 
-export default user = (state = {}, action = {}) => {
+export default function user(state = {}, action = {}) {
   switch (action.type) {
-    case USER_LOGGED_IN:
+    case USER_SENT_MESSAGE:
       return action.user;
     default:
       return state;
   }
-};
+}
