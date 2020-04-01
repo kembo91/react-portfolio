@@ -19,6 +19,10 @@ func main() {
 
 	buildHandler := http.FileServer(http.Dir("./build"))
 	r.PathPrefix("/").Handler(buildHandler)
+
+	staticHandler := http.StripPrefix("/static/", http.FileServer(http.Dir("./build/static>")))
+	r.PathPrefix("/static/").Handler(staticHandler)
+
 	srv := http.Server{
 		Handler:      handlers.LoggingHandler(os.Stdout, r),
 		Addr:         "127.0.0.1:8080",
