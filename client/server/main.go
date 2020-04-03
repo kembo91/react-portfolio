@@ -1,24 +1,31 @@
 package main
 
 import (
+	"github.com/gorilla/handlers"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
 	"time"
 
-	"github.com/gorilla/handlers"
+	"config"
 
 	"github.com/gorilla/mux"
 )
 
 func main() {
+	cfg, err := GetConfig("config.yml")
+
 	r := mux.NewRouter()
 	api := r.PathPrefix("/api").Subrouter()
 	api.HandleFunc("/msg", MessageHandler).Methods("POST")
 
 	buildHandler := http.FileServer(http.Dir("./build"))
 	r.PathPrefix("/").Handler(buildHandler)
+
+	staticHandler := http.StripPrefix("/static/", http.FileServer(http.Dir("./build/static>")))
+	r.PathPrefix("/static/").Handler(staticHandler)
+
 	srv := http.Server{
 		Handler:      handlers.LoggingHandler(os.Stdout, r),
 		Addr:         "127.0.0.1:8080",
