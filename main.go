@@ -1,21 +1,18 @@
 package main
 
 import (
-	"github.com/gorilla/handlers"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
 	"time"
 
-	"config"
+	"github.com/gorilla/handlers"
 
 	"github.com/gorilla/mux"
 )
 
 func main() {
-	cfg, err := GetConfig("config.yml")
-
 	r := mux.NewRouter()
 	api := r.PathPrefix("/api").Subrouter()
 	api.HandleFunc("/msg", MessageHandler).Methods("POST")
