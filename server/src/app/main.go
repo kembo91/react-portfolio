@@ -2,8 +2,7 @@ package main
 
 import (
 	"app/bot"
-	"app/config"
-	"app/events"
+	"encoding/json"
 	"log"
 	"net/http"
 	"os"
@@ -11,23 +10,14 @@ import (
 
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
-	tb "gopkg.in/tucnak/telebot.v2"
 )
 
 func main() {
-	cfg, err := config.GetConfig("../../config.yml")
-	if err != nil {
-		log.Fatal(err)
-	}
-	b, err := bot.GetBot(cfg)
-	if err != nil {
-		log.Fatal(err)
-	}
-	var user *tb.User
-	bot.ConfigureBot(b, user)
+	c := make(chan *bot.Message)
+	go bot.ConfigureAndStartBot(c)
 	r := mux.NewRouter()
 	api := r.PathPrefix("/api").Subrouter()
-	api.HandleFunc("/msg", events.MessageHandler(b, user)).Methods("POST")
+	api.HandleFunc("/msg", MessageHandler(c)).Methods("POST")
 
 	//buildHandler := http.FileServer(http.Dir("./build"))
 	//r.PathPrefix("/").Handler(buildHandler)
@@ -41,7 +31,20 @@ func main() {
 		WriteTimeout: 15 * time.Second,
 		ReadTimeout:  15 * time.Second,
 	}
-	go b.Start()
-	log.Println("Now listening on port 8080")
 	log.Fatal(srv.ListenAndServe())
+	log.Println("Now listening on port 8080")
+
+}
+
+func MessageHandler(c chan *bot.Message) func(w http.ResponseWriter, r *http.Request) {
+	return func(w http.ResponseWriter, r *http.Request) {
+		var m bot.Message
+		err := json.NewDecoder(r.Body).Decode(&m)
+		if err == nil {
+			log.Printf("Can't read body", err)
+			http.Error(w, "Can't read body", http.StatusBadRequest)
+		}
+		log.Println("we hot")
+		c <- &m
+	}
 }

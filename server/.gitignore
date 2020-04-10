@@ -1,3 +1,5 @@
 config.yml
-bin
-pkg
+bin/
+pkg/
+github.com/
+gopkg.in/

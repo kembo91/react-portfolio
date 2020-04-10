@@ -8,9 +8,9 @@ class ContactForm extends React.Component {
   state = {
     data: {
       email: "",
-      message: ""
+      message: "",
     },
-    errors: {}
+    errors: {},
   };
 
   validate = () => {
@@ -24,15 +24,16 @@ class ContactForm extends React.Component {
     const errors = this.validate();
     this.setState({ errors });
     if (Object.keys(errors).length === 0) {
-      this.props
-        .submit(this.state.data)
-        .catch(err => this.setState({ errors: err.response.data.errors }));
+      this.props.submit(this.state.data).catch((err) => {
+        console.log(err.Error);
+        this.setState({ errors: err.Error });
+      });
     }
   };
 
-  onChange = event =>
+  onChange = (event) =>
     this.setState({
-      data: { ...this.state.data, [event.target.name]: event.target.value }
+      data: { ...this.state.data, [event.target.name]: event.target.value },
     });
 
   render() {
@@ -78,7 +79,7 @@ class ContactForm extends React.Component {
 }
 
 ContactForm.propTypes = {
-  submit: PropTypes.func.isRequired
+  submit: PropTypes.func.isRequired,
 };
 
 export default ContactForm;

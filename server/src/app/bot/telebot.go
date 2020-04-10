@@ -2,29 +2,57 @@ package bot
 
 import (
 	"app/config"
-	"time"
+	"fmt"
+	"log"
 
-	tb "gopkg.in/tucnak/telebot.v2"
+	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api"
 )
 
-func GetBot(cfg config.Config) (b *tb.Bot, err error) {
-	b, err = tb.NewBot(tb.Settings{
-		Token:  cfg.Token,
-		Poller: &tb.LongPoller{Timeout: 10 * time.Second},
-	})
+type Message struct {
+	Msgdata struct {
+		Message string `json:"message"`
+		Email   string `json:"email"`
+	} `json:"msgdata"`
+}
+
+func (m Message) CreateMessage() string {
+	return fmt.Sprintf("%v wants to contact you, they sent a message %v", m.Msgdata.Email, m.Msgdata.Message)
+}
+
+func ConfigureAndStartBot(c chan *Message) {
+	cfg, err := config.GetConfig("../../config.yml")
 	if err != nil {
-		return b, err
+		log.Fatal(err)
 	}
-	return b, err
-}
-
-func handleStart(bot *tb.Bot, user *tb.User) func(m *tb.Message) {
-	return func(m *tb.Message) {
-		user = m.Sender
-		bot.Send(m.Sender, "Hello! Bot is now active")
+	bot, err := tgbotapi.NewBotAPI(cfg.Token)
+	if err != nil {
+		log.Panic(err)
 	}
-}
 
-func ConfigureBot(b *tb.Bot, user *tb.User) {
-	b.Handle("/start", handleStart(b, user))
+	u := tgbotapi.NewUpdate(0)
+	u.Timeout = 15
+
+	updates, err := bot.GetUpdatesChan(u)
+	if err != nil {
+		log.Fatal(err)
+	}
+	var users []int64
+
+	go func() {
+		for u := range c {
+			for _, user := range users {
+				msg := tgbotapi.NewMessage(user, u.CreateMessage())
+				bot.Send(msg)
+			}
+		}
+	}()
+
+	for update := range updates {
+		if update.Message.Text == "/start" {
+			msg := tgbotapi.NewMessage(update.Message.Chat.ID, "Bot is now working")
+			msg.ReplyToMessageID = update.Message.MessageID
+			bot.Send(msg)
+			users = append(users, update.Message.Chat.ID)
+		}
+	}
 }
