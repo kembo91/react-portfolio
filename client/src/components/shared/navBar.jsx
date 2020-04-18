@@ -1,18 +1,18 @@
 import React from "react";
 
-const NavBar = props => {
+const NavBar = (props) => {
   return (
     <div>
       <nav>
         <ul>
           <li>
-            <button onClick={props.onClickHome}>Home</button>
+            <button onClick={() => props.onClick("home")}>Home</button>
           </li>
           <li>
-            <button onClick={props.onClickResume}>Resume</button>
+            <button onClick={() => props.onClick("resume")}>Resume</button>
           </li>
           <li>
-            <button onClick={props.onClickContact}>contact</button>
+            <button onClick={() => props.onClick("contact")}>contact</button>
           </li>
         </ul>
       </nav>

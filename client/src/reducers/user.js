@@ -1,9 +1,14 @@
 import { USER_SENT_MESSAGE } from "../types";
 
-export default function user(state = {}, action = {}) {
+const initialState = {
+  msgStatus: false,
+};
+
+export default function user(state = initialState, action = {}) {
   switch (action.type) {
     case USER_SENT_MESSAGE:
-      return action.user;
+      const newState = { ...state, msgStatus: true };
+      return newState;
     default:
       return state;
   }

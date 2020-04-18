@@ -40,11 +40,12 @@ func MessageHandler(c chan *bot.Message) func(w http.ResponseWriter, r *http.Req
 	return func(w http.ResponseWriter, r *http.Request) {
 		var m bot.Message
 		err := json.NewDecoder(r.Body).Decode(&m)
-		if err == nil {
-			log.Printf("Can't read body", err)
+		if err != nil {
 			http.Error(w, "Can't read body", http.StatusBadRequest)
 		}
-		log.Println("we hot")
 		c <- &m
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(200)
+
 	}
 }

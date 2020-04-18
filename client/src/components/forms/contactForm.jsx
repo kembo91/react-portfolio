@@ -3,6 +3,7 @@ import { Form, Button, Message } from "semantic-ui-react";
 import InlineError from "../messages/inlineError";
 import Validator from "validator";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
 class ContactForm extends React.Component {
   state = {
@@ -25,8 +26,8 @@ class ContactForm extends React.Component {
     this.setState({ errors });
     if (Object.keys(errors).length === 0) {
       this.props.submit(this.state.data).catch((err) => {
-        console.log(err.Error);
-        this.setState({ errors: err.Error });
+        errors.global = err.message;
+        this.setState({ errors });
       });
     }
   };
@@ -36,43 +37,55 @@ class ContactForm extends React.Component {
       data: { ...this.state.data, [event.target.name]: event.target.value },
     });
 
+  renderForm = (errors, data) => {
+    return (
+      <Form noValidate onSubmit={this.onSubmit}>
+        {errors.global && (
+          <Message negative>
+            <Message.Header>Something went wrong</Message.Header>
+            <p>{errors.global}</p>
+          </Message>
+        )}
+        <Form.Field error={!!errors.email}>
+          <label>E-Mail</label>
+          <input
+            placeholder="example@example.com"
+            onChange={this.onChange}
+            name="email"
+            type="email"
+            id="email"
+            value={data.email}
+          />
+          {errors.email && <InlineError message={errors.email} />}
+        </Form.Field>
+        <Form.Field>
+          <label>Your message (optional)</label>
+          <input
+            onChange={this.onChange}
+            name="message"
+            type="text"
+            id="message"
+            value={data.message}
+          />
+        </Form.Field>
+        <Button primary type="submit">
+          Contact me!
+        </Button>
+      </Form>
+    );
+  };
+
   render() {
     const { errors, data } = this.state;
     return (
       <div>
-        <Form noValidate onSubmit={this.onSubmit}>
-          {errors.global && (
-            <Message negative>
-              <Message.Header>Something went wrong</Message.Header>
-              <p>{errors.global}</p>
-            </Message>
-          )}
-          <Form.Field error={!!errors.email}>
-            <label>E-Mail</label>
-            <input
-              placeholder="example@example.com"
-              onChange={this.onChange}
-              name="email"
-              type="email"
-              id="email"
-              value={data.email}
-            />
-            {errors.email && <InlineError message={errors.email} />}
-          </Form.Field>
-          <Form.Field>
-            <label>Your message (optional)</label>
-            <input
-              onChange={this.onChange}
-              name="message"
-              type="text"
-              id="message"
-              value={data.message}
-            />
-          </Form.Field>
-          <Button primary type="submit">
-            Contact me!
-          </Button>
-        </Form>
+        {!this.props.msgStatus ? (
+          this.renderForm(errors, data)
+        ) : (
+          <Message>
+            <Message.Header>Message successfully sent!</Message.Header>
+          </Message>
+        )}
       </div>
     );
   }
@@ -82,4 +95,10 @@ ContactForm.propTypes = {
   submit: PropTypes.func.isRequired,
 };
 
-export default ContactForm;
+const mapStateToProps = (state) => {
+  return {
+    msgStatus: state.user.msgStatus,
+  };
+};
+
+export default connect(mapStateToProps)(ContactForm);

@@ -3,28 +3,19 @@ import NavBar from "./components/shared/navBar";
 import Aboutme from "./components/pages/aboutmePage";
 import ResumePage from "./components/pages/resumePage";
 import ContactPage from "./components/pages/contactPage";
+import { loadReCaptcha } from "react-recaptcha-google";
 
 class App extends Component {
   state = {
-    active: "aboutme"
+    active: "aboutme",
   };
 
-  onClickHome = () => {
-    this.setState({ active: "aboutme" });
+  onClick = (value) => {
+    this.setState({ ...this.state, active: value });
   };
 
-  onClickResume = () => {
-    this.setState({ active: "resume" });
-  };
-
-  onClickContact = () => {
-    this.setState({ active: "contact" });
-  };
-
-  renderBlock = active => {
+  renderBlock = (active) => {
     switch (active) {
-      case "aboutme":
-        return <Aboutme />;
       case "resume":
         return <ResumePage />;
       case "contact":
@@ -34,15 +25,15 @@ class App extends Component {
     }
   };
 
+  componentDidMount() {
+    loadReCaptcha();
+  }
+
   render() {
     const active = this.state.active;
     return (
       <div>
-        <NavBar
-          onClickHome={this.onClickHome}
-          onClickContact={this.onClickContact}
-          onClickResume={this.onClickResume}
-        />
+        <NavBar onClick={this.onClick} />
         {this.renderBlock(active)}
       </div>
     );
