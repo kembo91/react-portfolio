@@ -1,23 +1,27 @@
-import React from "react";
+import React, { Component } from "react";
 import { Form, Button, Message } from "semantic-ui-react";
 import InlineError from "../messages/inlineError";
 import Validator from "validator";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { ReCaptcha } from "react-recaptcha-google";
 
-class ContactForm extends React.Component {
+class ContactForm extends Component {
   state = {
     data: {
       email: "",
       message: "",
     },
+    isVerified: false,
     errors: {},
   };
 
   validate = () => {
     const errors = {};
     const { email } = this.state.data;
+    const { isVerified } = this.state;
     if (!Validator.isEmail(email)) errors.email = "Email is not valid";
+    if (!isVerified) errors.verification = "Please verify that you are a human";
     return errors;
   };
 
@@ -29,6 +33,12 @@ class ContactForm extends React.Component {
         errors.global = err.message;
         this.setState({ errors });
       });
+    }
+  };
+
+  handleVerified = (value) => {
+    if (value) {
+      this.setState({ ...this.state, isVerified: true });
     }
   };
 
@@ -44,6 +54,11 @@ class ContactForm extends React.Component {
           <Message negative>
             <Message.Header>Something went wrong</Message.Header>
             <p>{errors.global}</p>
+          </Message>
+        )}
+        {errors.verification && (
+          <Message negative>
+            <p>{errors.verification}</p>
           </Message>
         )}
         <Form.Field error={!!errors.email}>
@@ -71,6 +86,13 @@ class ContactForm extends React.Component {
         <Button primary type="submit">
           Contact me!
         </Button>
+        <ReCaptcha
+          ref={(el) => (this.captcha = el)}
+          size="normal"
+          render="explicit"
+          sitekey="6LeY1OsUAAAAACFVZA2zc-u67FWv7MkgWUWhuVbA"
+          verifyCallback={this.handleVerified}
+        />
       </Form>
     );
   };
