@@ -3,6 +3,7 @@ import ContactForm from "../forms/contactForm";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { message } from "../../actions/message";
+import { Header } from "semantic-ui-react";
 
 class ContactPage extends Component {
   onSubmit = (data) => {
@@ -12,7 +13,7 @@ class ContactPage extends Component {
   render() {
     return (
       <div>
-        <h1> Contact Page</h1>
+        <Header>Contact Page</Header>
         <ContactForm submit={this.onSubmit} />
       </div>
     );
