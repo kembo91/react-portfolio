@@ -3,8 +3,9 @@ import NavBar from "./components/shared/navBar";
 import Aboutme from "./components/pages/aboutmePage";
 import ResumePage from "./components/pages/resumePage";
 import ContactPage from "./components/pages/contactPage";
+import ThemingPage from "./components/pages/themingPage";
 import { loadReCaptcha } from "react-recaptcha-google";
-import { Grid, Container } from "semantic-ui-react";
+import { Container, Row, Col } from "react-bootstrap";
 
 class App extends Component {
   state = {
@@ -21,6 +22,8 @@ class App extends Component {
         return <ResumePage />;
       case "contact":
         return <ContactPage />;
+      case "theme":
+        return <ThemingPage />;
       default:
         return <Aboutme />;
     }
@@ -29,20 +32,22 @@ class App extends Component {
   componentDidMount() {
     loadReCaptcha();
   }
-
+  //className="d-flex align-items-center">
   render() {
     const active = this.state.active;
     return (
-      <div>
-        <Container>
-          <Grid columns={2}>
-            <Grid.Column width={4}>
-              <NavBar onClick={this.onClick} />
-            </Grid.Column>
-            <Grid.Column width={8}>{this.renderBlock(active)}</Grid.Column>
-          </Grid>
-        </Container>
-      </div>
+      <Container fluid>
+        <Row className="justify-content-md-center" id="titleRow">
+          <p className="title">GALI-KETEMA MBOGO</p>
+        </Row>
+        <Row className="justify-content-md-center">
+          <h3 className="title">Web developer</h3>
+        </Row>
+        <Row className="m-4">
+          <NavBar onClick={this.onClick} />
+        </Row>
+        <Row className="container-color">{this.renderBlock(active)}</Row>
+      </Container>
     );
   }
 }

@@ -1,25 +1,46 @@
 import React from "react";
-import { Button, Grid } from "semantic-ui-react";
-
-const style = {
-  height: "50px",
-};
+import { Button, Container, Row, Col } from "react-bootstrap";
 
 const NavBar = (props) => {
   return (
-    <div>
-      <Grid columns={1}>
-        <Grid.Column style={style}>
-          <Button onClick={() => props.onClick("home")}>Home</Button>
-        </Grid.Column>
-        <Grid.Column style={style}>
-          <Button onClick={() => props.onClick("resume")}>Resume</Button>
-        </Grid.Column>
-        <Grid.Column style={style}>
-          <Button onClick={() => props.onClick("contact")}>contact</Button>
-        </Grid.Column>
-      </Grid>
-    </div>
+    <Container>
+      <Row>
+        <Col>
+          <Button
+            className="btn-lg btn-block"
+            onClick={() => props.onClick("home")}
+          >
+            Home
+          </Button>
+        </Col>
+        <Col>
+          <Button
+            className="btn-lg btn-block"
+            onClick={() => props.onClick("resume")}
+          >
+            Resume
+          </Button>
+        </Col>
+
+        <Col>
+          <Button
+            className="btn-lg btn-block"
+            onClick={() => props.onClick("contact")}
+          >
+            Contact
+          </Button>
+        </Col>
+
+        <Col>
+          <Button
+            className="btn-lg btn-block"
+            onClick={() => props.onClick("theme")}
+          >
+            Theme
+          </Button>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 

@@ -1,0 +1,30 @@
+@import "../node_modules/rfs/scss";
+$body-bg: #4e5e6d;
+$menu-color: #96939d;
+$text-color: #4e5e6d;
+$button-color: #d9bd89;
+$container-color: #fafbfa;
+$enable-responsive-font-sizes: true;
+
+.title {
+  font-size: 9vw;
+  margin: 0 0 0.2em;
+  line-height: 85%;
+}
+
+$theme-colors: (
+  "primary": $button-color,
+);
+
+.container-color {
+  background: $container-color;
+}
+//.btn-custom {
+//  background: #fff;
+//  color: red;
+//  border: 2px solid red;
+//  border-radius: 3px;
+//  padding: 5px 10px;
+//  text-transform: uppercase;
+//}
+@import "~bootstrap/scss/bootstrap.scss";

@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import { Form, Button, Message } from "semantic-ui-react";
 import InlineError from "../messages/inlineError";
 import Validator from "validator";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { ReCaptcha } from "react-recaptcha-google";
+import { Form, Alert, Button } from "react-bootstrap";
 
 class ContactForm extends Component {
   state = {
@@ -51,39 +51,37 @@ class ContactForm extends Component {
     return (
       <Form noValidate onSubmit={this.onSubmit}>
         {errors.global && (
-          <Message negative>
-            <Message.Header>Something went wrong</Message.Header>
-            <p>{errors.global}</p>
-          </Message>
+          <Alert negative>
+            <Alert variant="danger">
+              <p>Something went wrong</p>
+              <p>{errors.global}</p>
+            </Alert>
+          </Alert>
         )}
         {errors.verification && (
-          <Message negative>
+          <Alert variant="danger">
             <p>{errors.verification}</p>
-          </Message>
+          </Alert>
         )}
-        <Form.Field error={!!errors.email}>
-          <label>E-Mail</label>
-          <input
+        <Form.Group controlId="formEmail">
+          <Form.Label>E-Mail</Form.Label>
+          <Form.Control
             placeholder="example@example.com"
             onChange={this.onChange}
-            name="email"
             type="email"
-            id="email"
             value={data.email}
           />
           {errors.email && <InlineError message={errors.email} />}
-        </Form.Field>
-        <Form.Field>
-          <label>Your message (optional)</label>
-          <input
+        </Form.Group>
+        <Form.Group controlId="formMessage">
+          <Form.Label>Your message (optional)</Form.Label>
+          <Form.Control
             onChange={this.onChange}
-            name="message"
             type="text"
-            id="message"
             value={data.message}
           />
-        </Form.Field>
-        <Button primary type="submit">
+        </Form.Group>
+        <Button variant="primary" type="submit">
           Contact me!
         </Button>
         <ReCaptcha
@@ -104,9 +102,9 @@ class ContactForm extends Component {
         {!this.props.msgStatus ? (
           this.renderForm(errors, data)
         ) : (
-          <Message>
-            <Message.Header>Message successfully sent!</Message.Header>
-          </Message>
+          <Alert variant="success">
+            <p>Message successfully sent!</p>
+          </Alert>
         )}
       </div>
     );
