@@ -1,19 +1,43 @@
 @import "../node_modules/rfs/scss";
 $body-bg: #4e5e6d;
 $menu-color: #96939d;
-$text-color: #4e5e6d;
-$button-color: #d9bd89;
+$main-color: #4e5e6d;
+$text-color: #d9bd89;
 $container-color: #fafbfa;
-$enable-responsive-font-sizes: true;
+
+* {
+  font-size: 18px;
+  color: $menu-color;
+  text-align: center;
+}
 
 .title {
   font-size: 9vw;
   margin: 0 0 0.2em;
   line-height: 85%;
+  color: $text-color;
+}
+
+.content-row .row {
+  padding-left: 10%;
+  padding-right: 10%;
+  justify-content: center;
+}
+
+.subtitle {
+  font-size: 40px;
+}
+
+.custom-btn {
+  background-color: transparent;
+  border: none;
+  color: $text-color;
+  text-transform: uppercase;
+  font-size: 3.5vw;
 }
 
 $theme-colors: (
-  "primary": $button-color,
+  "primary": $text-color,
 );
 
 .container-color {

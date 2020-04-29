@@ -1,25 +1,28 @@
 import React from "react";
+import { Container, Row } from "react-bootstrap";
 
 const Aboutme = () => {
   return (
-    <div>
-      <h2>About Me Page</h2>
-      <p>
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-        mollit anim id est laborum." "Lorem ipsum dolor sit amet, consectetur
-        adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-        magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-        in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa
-        qui officia deserunt mollit anim id est laborum."
-      </p>
-    </div>
+    <Container fluid className="content-row">
+      <Row>
+        <p className="subtitle">About Me</p>
+      </Row>
+      <Row>
+        <p>
+          Hi! I'm a web developer/data scientist located in Saint-Petersburg,
+          Russia. I have experience in Javascript (ES6), React, Golang, Python
+          and a whole bunch of data science frameworks e.g. tensorflow, pytorch
+          etc. I'm passionate about building well-designed software that
+          enhances people's lives.
+        </p>
+      </Row>
+      <Row>
+        <p>
+          Interested in working with me? I'm seeking new opportunities, get in
+          touch with me and let's build something awesome!
+        </p>
+      </Row>
+    </Container>
   );
 };
 

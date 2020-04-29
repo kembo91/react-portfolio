@@ -3,11 +3,12 @@ import { Button, Container, Row, Col } from "react-bootstrap";
 
 const NavBar = (props) => {
   return (
-    <Container>
+    <Container fluid>
       <Row>
         <Col>
           <Button
-            className="btn-lg btn-block"
+            bsPrefix="custom-btn"
+            className="btn-block"
             onClick={() => props.onClick("home")}
           >
             Home
@@ -15,7 +16,8 @@ const NavBar = (props) => {
         </Col>
         <Col>
           <Button
-            className="btn-lg btn-block"
+            bsPrefix="custom-btn"
+            className="btn-block"
             onClick={() => props.onClick("resume")}
           >
             Resume
@@ -24,7 +26,8 @@ const NavBar = (props) => {
 
         <Col>
           <Button
-            className="btn-lg btn-block"
+            bsPrefix="custom-btn"
+            className="btn-block"
             onClick={() => props.onClick("contact")}
           >
             Contact
@@ -33,7 +36,8 @@ const NavBar = (props) => {
 
         <Col>
           <Button
-            className="btn-lg btn-block"
+            bsPrefix="custom-btn"
+            className="btn-block"
             onClick={() => props.onClick("theme")}
           >
             Theme

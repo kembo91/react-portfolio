@@ -36,18 +36,11 @@ class App extends Component {
   render() {
     const active = this.state.active;
     return (
-      <Container fluid>
-        <Row className="justify-content-md-center" id="titleRow">
-          <p className="title">GALI-KETEMA MBOGO</p>
-        </Row>
-        <Row className="justify-content-md-center">
-          <h3 className="title">Web developer</h3>
-        </Row>
-        <Row className="m-4">
-          <NavBar onClick={this.onClick} />
-        </Row>
-        <Row className="container-color">{this.renderBlock(active)}</Row>
-      </Container>
+      <div>
+        <p className="title">GALI-KETEMA MBOGO</p>
+        <NavBar onClick={this.onClick} />
+        {this.renderBlock(active)}
+      </div>
     );
   }
 }
