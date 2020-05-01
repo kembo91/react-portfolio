@@ -5,7 +5,7 @@ import ResumePage from "./components/pages/resumePage";
 import ContactPage from "./components/pages/contactPage";
 import ThemingPage from "./components/pages/themingPage";
 import { loadReCaptcha } from "react-recaptcha-google";
-import { Container, Row, Col } from "react-bootstrap";
+import Footer from "./components/shared/footer";
 
 class App extends Component {
   state = {
@@ -40,6 +40,7 @@ class App extends Component {
         <p className="title">GALI-KETEMA MBOGO</p>
         <NavBar onClick={this.onClick} />
         {this.renderBlock(active)}
+        <Footer className="fixed-bootom" />
       </div>
     );
   }

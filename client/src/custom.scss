@@ -5,6 +5,14 @@ $main-color: #4e5e6d;
 $text-color: #d9bd89;
 $container-color: #fafbfa;
 
+html {
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+}
+
 * {
   font-size: 18px;
   color: $menu-color;
@@ -18,6 +26,12 @@ $container-color: #fafbfa;
   color: $text-color;
 }
 
+.btn-transparent {
+  color: transparent;
+  border-color: transparent;
+  background-color: transparent;
+}
+
 .content-row .row {
   padding-left: 10%;
   padding-right: 10%;
@@ -26,6 +40,11 @@ $container-color: #fafbfa;
 
 .subtitle {
   font-size: 40px;
+}
+
+.tansparent-btn {
+  background-color: transparent;
+  color: transparent;
 }
 
 .custom-btn {
