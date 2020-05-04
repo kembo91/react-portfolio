@@ -1,9 +1,23 @@
+@import "~bootstrap/scss/bootstrap.scss";
 @import "../node_modules/rfs/scss";
+@import "css-vars/css-vars";
+
+$css-vars-use-native: true;
+
 $body-bg: #4e5e6d;
 $menu-color: #96939d;
-$main-color: #4e5e6d;
+$hl-color: #527ea8;
 $text-color: #d9bd89;
 $container-color: #fafbfa;
+
+@include css-vars(
+  (
+    --bgcolor: $body-bg,
+    --textcolor: $text-color,
+    --menucolor: $menu-color,
+    --hlcolor: $hl-color,
+  )
+);
 
 html {
   height: 100%;
@@ -11,11 +25,9 @@ html {
 
 body {
   min-height: 100%;
-}
-
-* {
+  background-color: var(--bgcolor);
   font-size: 18px;
-  color: $menu-color;
+  color: var(--textcolor);
   text-align: center;
 }
 
@@ -23,13 +35,27 @@ body {
   font-size: 9vw;
   margin: 0 0 0.2em;
   line-height: 85%;
-  color: $text-color;
+  color: var(--menucolor);
+}
+
+.btn-menu {
+  background-color: transparent;
+  border: none;
+  color: var(--menucolor);
+  text-transform: uppercase;
+  font-size: 5rem;
+}
+
+.btn {
+  &:hover {
+    color: var(--hlcolor);
+  }
 }
 
 .btn-transparent {
-  color: transparent;
   border-color: transparent;
   background-color: transparent;
+  color: var(--textcolor);
 }
 
 .content-row .row {
@@ -41,33 +67,3 @@ body {
 .subtitle {
   font-size: 40px;
 }
-
-.tansparent-btn {
-  background-color: transparent;
-  color: transparent;
-}
-
-.custom-btn {
-  background-color: transparent;
-  border: none;
-  color: $text-color;
-  text-transform: uppercase;
-  font-size: 3.5vw;
-}
-
-$theme-colors: (
-  "primary": $text-color,
-);
-
-.container-color {
-  background: $container-color;
-}
-//.btn-custom {
-//  background: #fff;
-//  color: red;
-//  border: 2px solid red;
-//  border-radius: 3px;
-//  padding: 5px 10px;
-//  text-transform: uppercase;
-//}
-@import "~bootstrap/scss/bootstrap.scss";

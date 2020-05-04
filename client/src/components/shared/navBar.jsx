@@ -2,47 +2,17 @@ import React from "react";
 import { Button, Container, Row, Col } from "react-bootstrap";
 
 const NavBar = (props) => {
+  const navItems = ["Home", "Resume", "Contact", "Theme"];
   return (
     <Container fluid>
       <Row>
-        <Col>
-          <Button
-            bsPrefix="custom-btn"
-            className="btn-block"
-            onClick={() => props.onClick("home")}
-          >
-            Home
-          </Button>
-        </Col>
-        <Col>
-          <Button
-            bsPrefix="custom-btn"
-            className="btn-block"
-            onClick={() => props.onClick("resume")}
-          >
-            Resume
-          </Button>
-        </Col>
-
-        <Col>
-          <Button
-            bsPrefix="custom-btn"
-            className="btn-block"
-            onClick={() => props.onClick("contact")}
-          >
-            Contact
-          </Button>
-        </Col>
-
-        <Col>
-          <Button
-            bsPrefix="custom-btn"
-            className="btn-block"
-            onClick={() => props.onClick("theme")}
-          >
-            Theme
-          </Button>
-        </Col>
+        {navItems.map((item) => (
+          <Col>
+            <Button variant="menu" onClick={() => props.onClick(item)}>
+              {item}
+            </Button>
+          </Col>
+        ))}
       </Row>
     </Container>
   );

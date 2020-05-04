@@ -18,11 +18,11 @@ class App extends Component {
 
   renderBlock = (active) => {
     switch (active) {
-      case "resume":
+      case "Resume":
         return <ResumePage />;
-      case "contact":
+      case "Contact":
         return <ContactPage />;
-      case "theme":
+      case "Theme":
         return <ThemingPage />;
       default:
         return <Aboutme />;
