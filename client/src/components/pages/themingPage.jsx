@@ -1,23 +1,30 @@
 import React, { Component } from "react";
-import { Container, Col, Row } from "react-bootstrap";
+import { Container, Col, Row, Button } from "react-bootstrap";
 import ColorPickerCard from "../forms/colorPicker";
+import api from "../../api";
 
 class ThemingPage extends Component {
   state = {
     theme: {
-      backgroundColor: "4E5E6D",
-      textColor: "4E5E6D",
-      buttonColor: "D9BD89",
-      containerColor: "FAFBFA",
-      menuColor: "96939D",
+      "--bgcolor": "#4e5e6d",
+      "--textcolor": "#d9bd89",
+      "--menucolor": "#96939d",
+      "--hlcolor": "#527ea8",
     },
+    active: "--bgcolor",
+  };
+
+  fetchColormind = () => {
+    api.user.color().then((theme) => {
+      this.setState({ theme });
+      this.changeTheme();
+    });
   };
 
   changeTheme = () => {
-    document.documentElement.style.setProperty(
-      "--bgcolor",
-      this.state.theme.backgroundColor
-    );
+    Object.keys(this.state.theme).map((key) => {
+      document.documentElement.style.setProperty(key, this.state.theme[key]);
+    });
   };
 
   handleChangeComplete = (item) => (color) => {
@@ -27,16 +34,44 @@ class ThemingPage extends Component {
     this.changeTheme();
   };
 
+  changeActive = (value) => {
+    console.log(value);
+    this.setState({ ...this.state, active: value });
+  };
+
+  handleSelect = (eventKey) => {
+    switch (eventKey) {
+      case "Background":
+        this.changeActive("--bgcolor");
+        break;
+      case "Menu":
+        this.changeActive("--menucolor");
+        break;
+      case "Highlight":
+        this.changeActive("--hlcolor");
+        break;
+      case "Text":
+        this.changeActive("--textcolor");
+        break;
+    }
+  };
+
   render() {
+    const { active } = this.state;
     return (
       <Container fluid>
         <Row>
           <Col>
             <ColorPickerCard
               title="Background color"
-              color={this.state.theme}
-              onChangeComplete={this.handleChangeComplete()}
+              onChangeComplete={this.handleChangeComplete(active)}
+              onSelectColor={this.handleSelect}
+              color={this.state.theme[active]}
             />
+          </Col>
+          <Col>
+            <p>Fetch colors from colormind.io</p>
+            <Button onClick={this.fetchColormind}>Fetch</Button>
           </Col>
         </Row>
       </Container>

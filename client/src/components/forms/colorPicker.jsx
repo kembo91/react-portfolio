@@ -9,33 +9,30 @@ class ColorPickerCard extends Component {
 
   handleSelect = (eventKey) => {
     this.setState({ ...this.state, dropActive: eventKey });
+    this.props.onSelectColor(eventKey);
   };
 
   render() {
     const { dropActive } = this.state;
     const { color, onChangeComplete } = this.props;
-    const { bg, text, menu, hl, btn } = this.props;
     return (
       <div>
-        <Card style={{ width: "18rem" }}>
+        <Card style={{ width: "18rem" }} className="cl-hl">
           <Card.Body>
             <Dropdown onSelect={this.handleSelect}>
               <Dropdown.Toggle>{dropActive}</Dropdown.Toggle>
               <Dropdown.Menu>
-                <Dropdown.Item eventKey="Background" style={{ background: bg }}>
+                <Dropdown.Item eventKey="Background" className="cl-bg">
                   Background
                 </Dropdown.Item>
-                <Dropdown.Item eventKey="Text" style={{ background: text }}>
+                <Dropdown.Item eventKey="Text" className="cl-txt">
                   Text
                 </Dropdown.Item>
-                <Dropdown.Item eventKey="Menu" style={{ background: menu }}>
+                <Dropdown.Item eventKey="Menu" className="cl-menu">
                   Menu
                 </Dropdown.Item>
-                <Dropdown.Item eventKey="Highlight" style={{ background: hl }}>
+                <Dropdown.Item eventKey="Highlight" className="cl-hl">
                   Highlight
-                </Dropdown.Item>
-                <Dropdown.Item eventKey="Button" style={{ background: btn }}>
-                  Button
                 </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>

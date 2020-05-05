@@ -8,7 +8,6 @@ $body-bg: #4e5e6d;
 $menu-color: #96939d;
 $hl-color: #527ea8;
 $text-color: #d9bd89;
-$container-color: #fafbfa;
 
 @include css-vars(
   (
@@ -29,6 +28,22 @@ body {
   font-size: 18px;
   color: var(--textcolor);
   text-align: center;
+}
+
+.cl-bg {
+  background-color: var(--bgcolor);
+}
+
+.cl-txt {
+  background-color: var(--textcolor);
+}
+
+.cl-menu {
+  background-color: var(--menucolor);
+}
+
+.cl-hl {
+  background-color: var(--hlcolor);
 }
 
 .title {
