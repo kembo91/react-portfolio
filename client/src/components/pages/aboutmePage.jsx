@@ -1,12 +1,9 @@
 import React from "react";
-import { Container, Row, Dropdown } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
 
 const Aboutme = () => {
   return (
     <Container fluid className="content-row">
-      <Row>
-        <p className="subtitle">About Me</p>
-      </Row>
       <Row>
         <p>
           Hi! I'm a web developer/data scientist located in Saint-Petersburg,

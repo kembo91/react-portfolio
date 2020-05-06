@@ -4,7 +4,7 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <Container fluid className="fixed-bottom">
+    <Container fluid className="footer">
       <Row>
         <Col>
           <Button variant="transparent" href="https://github.com/kembo91">

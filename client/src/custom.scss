@@ -1,9 +1,10 @@
 @import "~bootstrap/scss/bootstrap.scss";
 @import "../node_modules/rfs/scss";
 @import "css-vars/css-vars";
+@import url("https://fonts.googleapis.com/css?family=Montserrat&display=swap");
 
 $css-vars-use-native: true;
-
+$font: "Montserrat", sans-serif;
 $body-bg: #4e5e6d;
 $menu-color: #96939d;
 $hl-color: #527ea8;
@@ -23,11 +24,37 @@ html {
 }
 
 body {
+  position: relative;
+  font-family: $font;
   min-height: 100%;
   background-color: var(--bgcolor);
   font-size: 18px;
   color: var(--textcolor);
   text-align: center;
+}
+
+.content-wrap {
+  padding-bottom: 5rem; /* Footer height */
+}
+
+.center-card {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.center-height {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.nav-pad {
+  margin-bottom: 7rem;
+}
+
+.form-container {
+  width: 30rem;
+  height: auto;
+  padding: 25px;
 }
 
 .cl-bg {
@@ -47,7 +74,7 @@ body {
 }
 
 .title {
-  font-size: 9vw;
+  font-size: 8vw;
   margin: 0 0 0.2em;
   line-height: 85%;
   color: var(--menucolor);
@@ -58,13 +85,25 @@ body {
   border: none;
   color: var(--menucolor);
   text-transform: uppercase;
-  font-size: 5rem;
+  font-size: 5vw;
+}
+
+.btn-ordinary {
+  border-color: transparent;
+  background: var(--menucolor);
+  color: var(--textcolor);
 }
 
 .btn {
   &:hover {
     color: var(--hlcolor);
   }
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }
 
 .btn-transparent {

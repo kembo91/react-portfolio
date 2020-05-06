@@ -2,6 +2,7 @@ package main
 
 import (
 	"app/bot"
+	"app/user"
 	"bytes"
 	"encoding/json"
 	"log"
@@ -93,6 +94,12 @@ func MessageHandler(c chan *bot.Message) func(w http.ResponseWriter, r *http.Req
 		err := json.NewDecoder(r.Body).Decode(&m)
 		if err != nil {
 			http.Error(w, "Can't read body", http.StatusBadRequest)
+			return
+		}
+		err = user.CheckContact(m.Msgdata.Email)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusBadRequest)
+			return
 		}
 		c <- &m
 		w.Header().Set("Content-Type", "application/json")

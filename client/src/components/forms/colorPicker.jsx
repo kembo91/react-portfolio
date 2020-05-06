@@ -17,10 +17,12 @@ class ColorPickerCard extends Component {
     const { color, onChangeComplete } = this.props;
     return (
       <div>
-        <Card style={{ width: "18rem" }} className="cl-hl">
-          <Card.Body>
+        <Card className="cl-hl center-card" style={{ width: "18rem" }}>
+          <Card.Body className="center-card">
             <Dropdown onSelect={this.handleSelect}>
-              <Dropdown.Toggle>{dropActive}</Dropdown.Toggle>
+              <Dropdown.Toggle style={{ background: color }}>
+                {dropActive}
+              </Dropdown.Toggle>
               <Dropdown.Menu>
                 <Dropdown.Item eventKey="Background" className="cl-bg">
                   Background

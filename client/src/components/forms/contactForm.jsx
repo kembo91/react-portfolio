@@ -1,9 +1,7 @@
 import React, { Component } from "react";
-import InlineError from "../messages/inlineError";
 import Validator from "validator";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { ReCaptcha } from "react-recaptcha-google";
 import { Form, Alert, Button } from "react-bootstrap";
 
 class ContactForm extends Component {
@@ -12,25 +10,23 @@ class ContactForm extends Component {
       email: "",
       message: "",
     },
-    isVerified: false,
     errors: {},
   };
 
   validate = () => {
     const errors = {};
     const { email } = this.state.data;
-    const { isVerified } = this.state;
-    if (!Validator.isEmail(email)) errors.email = "Email is not valid";
-    if (!isVerified) errors.verification = "Please verify that you are a human";
+    if (!Validator.isEmail(email) && !Validator.isMobilePhone(email))
+      errors.email = "Contact data incorrect";
     return errors;
   };
 
-  onSubmit = () => {
+  handleSubmit = () => {
     const errors = this.validate();
     this.setState({ errors });
     if (Object.keys(errors).length === 0) {
       this.props.submit(this.state.data).catch((err) => {
-        errors.global = err.message;
+        errors.global = err.response.data;
         this.setState({ errors });
       });
     }
@@ -38,59 +34,46 @@ class ContactForm extends Component {
 
   handleVerified = (value) => {
     if (value) {
-      this.setState({ ...this.state, isVerified: true });
+      const isVerified = !this.state.isVerified;
+      this.setState({ isVerified });
     }
   };
 
-  onChange = (event) =>
+  onChange = (event) => {
     this.setState({
       data: { ...this.state.data, [event.target.name]: event.target.value },
     });
+  };
 
   renderForm = (errors, data) => {
     return (
       <Form noValidate onSubmit={this.onSubmit}>
-        {errors.global && (
-          <Alert negative>
-            <Alert variant="danger">
-              <p>Something went wrong</p>
-              <p>{errors.global}</p>
-            </Alert>
+        {errors.email && (
+          <Alert variant="danger">
+            <p>{errors.email}</p>
           </Alert>
         )}
-        {errors.verification && (
+        {errors.global && (
           <Alert variant="danger">
-            <p>{errors.verification}</p>
+            <p>{errors.global}</p>
           </Alert>
         )}
         <Form.Group controlId="formEmail">
-          <Form.Label>E-Mail</Form.Label>
+          <Form.Label>E-Mail or phone number</Form.Label>
           <Form.Control
-            placeholder="example@example.com"
+            name="email"
+            placeholder="example@example.com or (+79999999)"
             onChange={this.onChange}
             type="email"
-            value={data.email}
           />
-          {errors.email && <InlineError message={errors.email} />}
         </Form.Group>
         <Form.Group controlId="formMessage">
           <Form.Label>Your message (optional)</Form.Label>
-          <Form.Control
-            onChange={this.onChange}
-            type="text"
-            value={data.message}
-          />
+          <Form.Control onChange={this.onChange} type="text" name="message" />
         </Form.Group>
-        <Button variant="primary" type="submit">
+        <Button variant="ordinary" onClick={this.handleSubmit}>
           Contact me!
         </Button>
-        <ReCaptcha
-          ref={(el) => (this.captcha = el)}
-          size="normal"
-          render="explicit"
-          sitekey="6LeY1OsUAAAAACFVZA2zc-u67FWv7MkgWUWhuVbA"
-          verifyCallback={this.handleVerified}
-        />
       </Form>
     );
   };
@@ -98,12 +81,13 @@ class ContactForm extends Component {
   render() {
     const { errors, data } = this.state;
     return (
-      <div>
+      <div className="cl-hl form-container rounded center-card">
         {!this.props.msgStatus ? (
           this.renderForm(errors, data)
         ) : (
           <Alert variant="success">
             <p>Message successfully sent!</p>
+            <p>I'll get in touch as soon as I can</p>
           </Alert>
         )}
       </div>

@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { Container, Col, Row, Button } from "react-bootstrap";
+import { Container, Col, Row } from "react-bootstrap";
 import ColorPickerCard from "../forms/colorPicker";
 import api from "../../api";
+import ColorMind from "../forms/colorMind";
 
 class ThemingPage extends Component {
   state = {
@@ -14,7 +15,7 @@ class ThemingPage extends Component {
     active: "--bgcolor",
   };
 
-  fetchColormind = () => {
+  handleFetchColormind = () => {
     api.user.color().then((theme) => {
       this.setState({ theme });
       this.changeTheme();
@@ -70,8 +71,18 @@ class ThemingPage extends Component {
             />
           </Col>
           <Col>
-            <p>Fetch colors from colormind.io</p>
-            <Button onClick={this.fetchColormind}>Fetch</Button>
+            <p>
+              I'm not a designer, which means that choosing colors is not my
+              thing. I'm a developer, so I give this choice to you.
+            </p>
+            <p>
+              Elements of this website consist of 4 customizable colors. Feel
+              free to change them manually or fetch generated color pallette
+              from <a href="http://colormind.io">colormind.io</a>
+            </p>
+          </Col>
+          <Col>
+            <ColorMind onFetchColormind={this.handleFetchColormind} />
           </Col>
         </Row>
       </Container>

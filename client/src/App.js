@@ -36,7 +36,7 @@ class App extends Component {
   render() {
     const active = this.state.active;
     return (
-      <div>
+      <div className="content-wrap">
         <p className="title">GALI-KETEMA MBOGO</p>
         <NavBar onClick={this.onClick} />
         {this.renderBlock(active)}
