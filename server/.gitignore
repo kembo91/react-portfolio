@@ -3,3 +3,5 @@ bin/
 pkg/
 github.com/
 gopkg.in/
+userfile.txt
+users.txt

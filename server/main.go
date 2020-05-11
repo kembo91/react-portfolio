@@ -18,7 +18,6 @@ import (
 )
 
 func main() {
-	log.Println("ok we got here")
 	c := make(chan *bot.Message)
 	go bot.ConfigureAndStartBot(c)
 	r := mux.NewRouter()
@@ -34,11 +33,11 @@ func main() {
 
 	srv := http.Server{
 		Handler:      handlers.LoggingHandler(os.Stdout, r),
-		Addr:         ":8080",
+		Addr:         ":80",
 		WriteTimeout: 15 * time.Second,
 		ReadTimeout:  15 * time.Second,
 	}
-	log.Println("Now listening on port 8080")
+	log.Println("Now listening on port 80")
 	log.Fatal(srv.ListenAndServe())
 
 }
