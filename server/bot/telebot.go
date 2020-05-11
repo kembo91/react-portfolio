@@ -1,7 +1,7 @@
 package bot
 
 import (
-	"app/config"
+	"github.com/kembo91/portfolio-server/config"
 	"bufio"
 	"errors"
 	"fmt"
@@ -126,7 +126,7 @@ func (m Message) CreateMessage() string {
 }
 
 func ConfigureAndStartBot(c chan *Message) {
-	cfg, err := config.GetConfig("../../config.yml")
+	cfg, err := config.GetConfig("config.yml")
 	if err != nil {
 		log.Fatal(err)
 	}

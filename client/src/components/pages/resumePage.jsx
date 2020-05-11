@@ -7,20 +7,10 @@ class ResumePage extends Component {
       <div>
         <h2>Resume Page</h2>
         <p>
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum." "Lorem ipsum
-          dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-          incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-          commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-          velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-          occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-          mollit anim id est laborum."
+          Coming soon, for now you can download PDF version of my resume via
+          <a href="https://www.overleaf.com/download/project/5b605575edfc2f5c1b1bf619/build/171f06c5e30-fa893fad2f72ab15/output/output.pdf?compileGroup=standard&clsiserverid=clsi-pre-emp-n1-b-wrnq&popupDownload=true">
+            this link
+          </a>
         </p>
       </div>
     );

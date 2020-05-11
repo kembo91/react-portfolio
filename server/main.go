@@ -1,14 +1,15 @@
 package main
 
 import (
-	"app/bot"
-	"app/user"
 	"bytes"
 	"encoding/json"
 	"log"
 	"net/http"
 	"os"
 	"time"
+
+	"github.com/kembo91/portfolio-server/bot"
+	"github.com/kembo91/portfolio-server/user"
 
 	"github.com/go-playground/colors"
 
@@ -17,6 +18,7 @@ import (
 )
 
 func main() {
+	log.Println("ok we got here")
 	c := make(chan *bot.Message)
 	go bot.ConfigureAndStartBot(c)
 	r := mux.NewRouter()
@@ -24,20 +26,20 @@ func main() {
 	api.HandleFunc("/msg", MessageHandler(c)).Methods("POST")
 	api.HandleFunc("/color", ColorHandler).Methods("GET")
 
-	//buildHandler := http.FileServer(http.Dir("./build"))
-	//r.PathPrefix("/").Handler(buildHandler)
+	buildHandler := http.FileServer(http.Dir("./build"))
+	r.PathPrefix("/").Handler(buildHandler)
 
-	//staticHandler := http.StripPrefix("/static/", http.FileServer(http.Dir("./build/static")))
-	//r.PathPrefix("/static/").Handler(staticHandler)
+	staticHandler := http.StripPrefix("/static/", http.FileServer(http.Dir("./build/static")))
+	r.PathPrefix("/static/").Handler(staticHandler)
 
 	srv := http.Server{
 		Handler:      handlers.LoggingHandler(os.Stdout, r),
-		Addr:         "127.0.0.1:8080",
+		Addr:         ":8080",
 		WriteTimeout: 15 * time.Second,
 		ReadTimeout:  15 * time.Second,
 	}
-	log.Fatal(srv.ListenAndServe())
 	log.Println("Now listening on port 8080")
+	log.Fatal(srv.ListenAndServe())
 
 }
 
