@@ -6,6 +6,7 @@ import ContactPage from "./components/pages/contactPage";
 import ThemingPage from "./components/pages/themingPage";
 import { loadReCaptcha } from "react-recaptcha-google";
 import Footer from "./components/shared/footer";
+import DocumentTitle from "react-document-title";
 
 class App extends Component {
   state = {
@@ -36,12 +37,14 @@ class App extends Component {
   render() {
     const active = this.state.active;
     return (
-      <div className="content-wrap">
-        <p className="title">GALI-KETEMA MBOGO</p>
-        <NavBar onClick={this.onClick} />
-        {this.renderBlock(active)}
-        <Footer className="fixed-bootom" />
-      </div>
+      <DocumentTitle title="Gali-Ketema Mbogo">
+        <div className="content-wrap">
+          <p className="title">GALI-KETEMA MBOGO</p>
+          <NavBar onClick={this.onClick} />
+          {this.renderBlock(active)}
+          <Footer className="fixed-bootom" />
+        </div>
+      </DocumentTitle>
     );
   }
 }
