@@ -1,20 +1,32 @@
-import React, { Component } from "react";
+import React from "react";
+import { Nav, NavItem, Button } from "react-bootstrap";
+import { useState } from "react";
+import PortfolioDesc from "../descriptions/portfolioDesc";
+import MMADesc from "../descriptions/MMADesc";
 
-class ResumePage extends Component {
-  state = {};
-  render() {
-    return (
-      <div>
-        <h2>Resume Page</h2>
-        <p>
-          Coming soon, for now you can download PDF version of my resume via
-          <a href="https://drive.google.com/file/d/1QeJRQm2R0g-2Ax_56gNkGM10OjwC4Vue/view?usp=sharing">
-            this link
-          </a>
-        </p>
-      </div>
-    );
-  }
-}
+//{evKey == 1 ? <PortfolioDesc /> : null}
+//    {evKey == 2 ? <MMADesc /> : null}
+
+const ResumePage = () => {
+  const [evKey, setEvKey] = useState(1);
+  return (
+    <div>
+      <Nav justify variant="tabs" activeKey={evKey}>
+        <Nav.Item>
+          <Button variant="linkMenu" onClick={() => setEvKey(1)}>
+            Portfolio
+          </Button>
+        </Nav.Item>
+        <Nav.Item>
+          <Button variant="linkMenu" onClick={() => setEvKey(2)}>
+            MMA predictions
+          </Button>
+        </Nav.Item>
+      </Nav>
+      {evKey === 1 ? <PortfolioDesc /> : null}
+      {evKey === 2 ? <MMADesc /> : null}
+    </div>
+  );
+};
 
 export default ResumePage;

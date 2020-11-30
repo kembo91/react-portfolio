@@ -23,7 +23,7 @@ class ThemingPage extends Component {
   };
 
   changeTheme = () => {
-    Object.keys(this.state.theme).map((key) => {
+    Object.keys(this.state.theme).forEach((key) => {
       document.documentElement.style.setProperty(key, this.state.theme[key]);
     });
   };
@@ -54,6 +54,8 @@ class ThemingPage extends Component {
       case "Text":
         this.changeActive("--textcolor");
         break;
+      default:
+        this.changeActive("--bgcolor");
     }
   };
 

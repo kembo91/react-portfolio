@@ -48,11 +48,11 @@ body {
 }
 
 .nav-pad {
-  margin-bottom: 7rem;
+  margin-bottom: 5rem;
 }
 
 .form-container {
-  width: 30rem;
+  min-width: 10rem;
   height: auto;
   padding: 25px;
 }
@@ -86,6 +86,13 @@ body {
   color: var(--menucolor);
   text-transform: uppercase;
   font-size: 5vw;
+}
+
+.btn-linkMenu {
+  background-color: transparent;
+  border: none;
+  color: var(--menucolor);
+  font-size: 2vw;
 }
 
 .btn-ordinary {
